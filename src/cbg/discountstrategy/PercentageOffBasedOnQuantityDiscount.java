@@ -9,10 +9,12 @@ public class PercentageOffBasedOnQuantityDiscount implements DiscountStrategy {
     private int minQtyNeeded;
     private double percentageOff;
     private final double NO_DISCOUNT = 0;
+    private String promotionName;
 
-    public PercentageOffBasedOnQuantityDiscount(int minQtyNeeded, double percentageOff) {
+    public PercentageOffBasedOnQuantityDiscount(int minQtyNeeded, double percentageOff, String promotionName) {
         this.minQtyNeeded = minQtyNeeded;
         this.percentageOff = percentageOff;
+        this.promotionName = promotionName;
     }
     
     @Override
@@ -41,6 +43,16 @@ public class PercentageOffBasedOnQuantityDiscount implements DiscountStrategy {
     public final void setPercentageOff(double percentageOff) {
         //Requires validation
         this.percentageOff = percentageOff;
+    }
+
+    @Override
+    public String getPromotionName() {
+        return promotionName;
+    }
+
+    public void setPromotionName(String promotionName) {
+        //Requires validation
+        this.promotionName = promotionName;
     }
     
 }

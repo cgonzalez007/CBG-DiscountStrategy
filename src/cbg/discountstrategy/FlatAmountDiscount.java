@@ -7,11 +7,13 @@ package cbg.discountstrategy;
  */
 public class FlatAmountDiscount implements DiscountStrategy{
     private double flatAmount;
+    private String promotionName;
 
-    public FlatAmountDiscount(double flatAmount) {
-        //Requires validation
+    public FlatAmountDiscount(double flatAmount, String promotionName) {
         this.flatAmount = flatAmount;
+        this.promotionName = promotionName;
     }
+    
     
     @Override
     public final double getDiscount(double unitPrice, int productQty) {
@@ -26,6 +28,16 @@ public class FlatAmountDiscount implements DiscountStrategy{
     public final void setFlatAmount(double flatAmount) {
         //Requires validation
         this.flatAmount = flatAmount;
+    }
+
+    @Override
+    public String getPromotionName() {
+        return promotionName;
+    }
+
+    public void setPromotionName(String promotionName) {
+        //Requires validation
+        this.promotionName = promotionName;
     }
     
 }

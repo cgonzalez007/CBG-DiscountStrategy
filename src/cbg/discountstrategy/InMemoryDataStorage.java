@@ -14,12 +14,13 @@ public class InMemoryDataStorage implements DataAccessStrategy {
     };
     Product[] products = new Product[]{
         new Product("P101","Men's Socks",19.95,new NoDiscount()),
-        new Product("P102","Men's Red Sweater",24.99, new 
-            PercentageOffDiscount(.25)),
+        new Product("P102","Men's Red Sweater", 24.99, new 
+            PercentageOffDiscount(.25, "25% Off")),
         new Product("P103","Women's blouse",49.99, new 
-            FlatAmountDiscount(5.00)),
+            FlatAmountDiscount(5.00,"$5 off")),
         new Product("P104","Blue Shirt",9.99, new 
-            PercentageOffBasedOnQuantityDiscount(5,0.20))
+            PercentageOffBasedOnQuantityDiscount(5,0.20,"20% off when you "
+                    + "purchase 5"))
     };
 
     @Override

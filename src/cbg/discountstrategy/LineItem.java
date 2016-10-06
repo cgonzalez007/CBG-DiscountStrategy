@@ -10,7 +10,7 @@ public class LineItem {
     private Product product;
     private int productQty;
 
-    public LineItem(Product product, int productQty, double subTotal) {
+    public LineItem(Product product, int productQty) {
         this.product = product;
         this.productQty = productQty;
     }
