@@ -5,12 +5,12 @@ package cbg.discountstrategy;
  *
  * @author cgonz
  */
-public class QuantityDiscount implements DiscountStrategy {
+public class PercentageOffBasedOnQuantityDiscount implements DiscountStrategy {
     private int minQtyNeeded;
-    private int percentageOff;
-    private final int NO_DISCOUNT = 0;
+    private double percentageOff;
+    private final double NO_DISCOUNT = 0;
 
-    public QuantityDiscount(int minQtyNeeded, int percentageOff) {
+    public PercentageOffBasedOnQuantityDiscount(int minQtyNeeded, double percentageOff) {
         this.minQtyNeeded = minQtyNeeded;
         this.percentageOff = percentageOff;
     }
@@ -30,14 +30,16 @@ public class QuantityDiscount implements DiscountStrategy {
     }
 
     public final void setMinQtyNeeded(int minQtyNeeded) {
+        //Requires validation
         this.minQtyNeeded = minQtyNeeded;
     }
 
-    public final int getPercentageOff() {
+    public final double getPercentageOff() {
         return percentageOff;
     }
 
-    public final void setPercentageOff(int percentageOff) {
+    public final void setPercentageOff(double percentageOff) {
+        //Requires validation
         this.percentageOff = percentageOff;
     }
     

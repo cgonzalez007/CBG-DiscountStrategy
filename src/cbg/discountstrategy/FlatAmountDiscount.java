@@ -9,6 +9,7 @@ public class FlatAmountDiscount implements DiscountStrategy{
     private double flatAmount;
 
     public FlatAmountDiscount(double flatAmount) {
+        //Requires validation
         this.flatAmount = flatAmount;
     }
     
@@ -23,6 +24,7 @@ public class FlatAmountDiscount implements DiscountStrategy{
     }
 
     public final void setFlatAmount(double flatAmount) {
+        //Requires validation
         this.flatAmount = flatAmount;
     }
     

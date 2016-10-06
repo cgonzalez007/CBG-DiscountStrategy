@@ -6,19 +6,25 @@ package cbg.discountstrategy;
  * @author cgonz
  */
 public class PosTerminal {
+
     private Receipt receipt;
-    private SaleOutputStrategy SaleOutputStrategy;
-    
-    public final void startNewSale(){
-        Receipt newReceipt = new Receipt();  
+
+    public final void startNewSale(String customerId, ReceiptOutputStrategy
+            receiptOutputStrategy, SaleOutputStrategy saleOutputStrategy,
+                DataAccessStrategy dataAccessStrategy) {
+        Receipt newReceipt = new Receipt(customerId, receiptOutputStrategy,
+                saleOutputStrategy, dataAccessStrategy);
         this.receipt = newReceipt;
     }
-    public final void addProductToSale(String productId, int productQty, 
-            DataAccessStrategy dataAccessStrategy){
-    
+
+    public final void addProductToSale(String productId, int productQty,
+            DataAccessStrategy dataAccessStrategy) {
+        //Requires validation
+
     }
-    public final void closeSale(){
-        
+
+    public final void closeSale() {
+        receipt.doOutput();
     }
 
     public final Receipt getReceipt() {
@@ -26,7 +32,8 @@ public class PosTerminal {
     }
 
     public final void setReceipt(Receipt receipt) {
+        //Requires validation
         this.receipt = receipt;
     }
-    
+
 }

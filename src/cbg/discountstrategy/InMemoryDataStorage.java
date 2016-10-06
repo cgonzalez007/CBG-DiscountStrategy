@@ -9,11 +9,17 @@ public class InMemoryDataStorage implements DataAccessStrategy {
 
     Customer[] customers = new Customer[]{
         new Customer("C001","Trebek","Alex"),
-        new Customer("C010","Connery","Sean"),
-        new Customer("C100","Reynolds","Burt")
+        new Customer("C002","Connery","Sean"),
+        new Customer("C103","Reynolds","Burt")
     };
     Product[] products = new Product[]{
-        new Product()
+        new Product("P101","Men's Socks",19.95,new NoDiscount()),
+        new Product("P102","Men's Red Sweater",24.99, new 
+            PercentageOffDiscount(.25)),
+        new Product("P103","Women's blouse",49.99, new 
+            FlatAmountDiscount(5.00)),
+        new Product("P104","Blue Shirt",9.99, new 
+            PercentageOffBasedOnQuantityDiscount(5,0.20))
     };
 
     @Override

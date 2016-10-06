@@ -12,6 +12,7 @@ public class Customer {
     private String firstName;
 
     public Customer(String CustomerId, String lastName, String firstName) {
+        //Requires validation
         this.CustomerId = CustomerId;
         this.lastName = lastName;
         this.firstName = firstName;
@@ -22,6 +23,7 @@ public class Customer {
     }
 
     public final void setCustomerId(String CustomerId) {
+        //Requires validation
         this.CustomerId = CustomerId;
     }
 
@@ -30,6 +32,7 @@ public class Customer {
     }
 
     public final void setLastName(String lastName) {
+        //Requires validation
         this.lastName = lastName;
     }
 
@@ -38,6 +41,7 @@ public class Customer {
     }
 
     public final void setFirstName(String firstName) {
+        //Requires validation
         this.firstName = firstName;
     }
     

@@ -8,8 +8,9 @@ package cbg.discountstrategy;
 public class GuiSaleOutput implements SaleOutputStrategy{
 
     @Override
-    public void outputSale() {
-
+    public void outputSale(String saleOutput) {
     }
+
+
     
 }

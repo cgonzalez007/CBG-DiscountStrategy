@@ -5,11 +5,11 @@ package cbg.discountstrategy;
  *
  * @author cgonz
  */
-public class ConsoleReceiptOutput implements ReceiptOutputFormat{
+public class ConsoleReceiptOutput implements ReceiptOutputStrategy{
 
     @Override
-    public void outputSaleReceipt(Customer customer, LineItem[] lineItem) {
-        
+    public void outputSaleReceipt(String receiptOutput) {
+        //Requires validation
     }
     
 }
