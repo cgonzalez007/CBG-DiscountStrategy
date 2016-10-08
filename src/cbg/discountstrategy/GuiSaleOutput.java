@@ -1,6 +1,8 @@
 
 package cbg.discountstrategy;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author cgonz
@@ -8,7 +10,8 @@ package cbg.discountstrategy;
 public class GuiSaleOutput implements SaleOutputStrategy{
 
     @Override
-    public void outputSale(String saleOutput) {
+    public final void outputSale(String saleOutput) {
+        JOptionPane.showMessageDialog(null, saleOutput);
     }
 
 

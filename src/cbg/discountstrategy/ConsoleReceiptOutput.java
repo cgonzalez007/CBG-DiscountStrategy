@@ -8,8 +8,9 @@ package cbg.discountstrategy;
 public class ConsoleReceiptOutput implements ReceiptOutputStrategy{
 
     @Override
-    public void outputSaleReceipt(String receiptOutput) {
+    public final void outputSaleReceipt(String receiptOutput) {
         //Requires validation
+        System.out.println(receiptOutput);
     }
     
 }

@@ -15,7 +15,7 @@ public class NoDiscount implements DiscountStrategy {
     }
 
     @Override
-    public String getPromotionName() {
+    public final String getPromotionName() {
         return PROMOTION_NAME;
     }
 

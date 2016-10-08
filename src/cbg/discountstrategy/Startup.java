@@ -6,20 +6,31 @@ package cbg.discountstrategy;
  * @author cgonz
  */
 public class Startup {
+
     public static void main(String[] args) {
+        //Configurations
         DataAccessStrategy dataAccess = new InMemoryDataStorage();
+        
+        ReceiptOutputStrategy receiptOutputStrategy = new 
+            ConsoleReceiptOutput();
+        ReceiptOutputFormatStrategy receiptOutputFormatStrategy = new 
+            ConsoleReceiptFormat1();
+        
         SaleOutputStrategy saleOutputStrategy = new GuiSaleOutput();
-        ReceiptOutputStrategy receiptOutputFormat = new ConsoleReceiptOutput();
-               
+        SaleOutputFormatStrategy saleOutputFormatStrategy = new 
+            GuiSaleOutputFormat1();
+        
+        
         PosTerminal posTerminal = new PosTerminal();
-        
-        posTerminal.startNewSale("C002",receiptOutputFormat, saleOutputStrategy,
-                dataAccess);
-        posTerminal.addProductToSale("P101",2,dataAccess);
-        posTerminal.addProductToSale("P102",1,dataAccess);
-        posTerminal.addProductToSale("P103",4,dataAccess);
-        posTerminal.addProductToSale("P104",3,dataAccess);
+
+        posTerminal.startNewSale("C002", receiptOutputStrategy,
+                receiptOutputFormatStrategy,saleOutputStrategy,
+                    saleOutputFormatStrategy,dataAccess);
+        posTerminal.addProductToSale("P101", 2, dataAccess);
+        posTerminal.addProductToSale("P102", 23, dataAccess);
+        posTerminal.addProductToSale("P103", 14, dataAccess);
+        posTerminal.addProductToSale("P104", 9, dataAccess);
         posTerminal.closeSale();
-        
+
     }
 }

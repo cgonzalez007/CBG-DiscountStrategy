@@ -1,8 +1,7 @@
 
 package cbg.discountstrategy;
 
-import java.util.Date;
-import java.text.DecimalFormat;
+
 /**
  *
  * @author cgonz
@@ -10,20 +9,27 @@ import java.text.DecimalFormat;
 
 public class Receipt {
     private Customer customer;
-    private ReceiptOutputStrategy receiptOutputStrategy;
-    private SaleOutputStrategy saleOutputStrategy;
     private LineItem[] lineItems;
+    private ReceiptOutputStrategy receiptOutputStrategy;
+    private ReceiptOutputFormatStrategy receiptOutputFormatStrategy;
+    private SaleOutputStrategy saleOutputStrategy;
+    private SaleOutputFormatStrategy saleOutputFormatStrategy;
 
-    public Receipt(String customerId,ReceiptOutputStrategy receiptOutputStrategy, 
-            SaleOutputStrategy saleOutputStrategy, DataAccessStrategy 
-                    dataAccessStrategy) {
+    public Receipt(String customerId,ReceiptOutputStrategy 
+            receiptOutputStrategy, ReceiptOutputFormatStrategy
+                receiptOutputFormatStrategy, SaleOutputStrategy 
+                    saleOutputStrategy,SaleOutputFormatStrategy 
+                        saleOutputFormatStrategy, DataAccessStrategy 
+                            dataAccessStrategy) {
         //Requires validation
         this.receiptOutputStrategy = receiptOutputStrategy;
+        this.receiptOutputFormatStrategy = receiptOutputFormatStrategy;
         this.saleOutputStrategy = saleOutputStrategy;
+        this.saleOutputFormatStrategy = saleOutputFormatStrategy;
         
         this.customer = dataAccessStrategy.findCustomer(customerId);      
        
-        LineItem[] newLineItems = new LineItem[1];
+        LineItem[] newLineItems = new LineItem[0];
         this.lineItems = newLineItems;
     }
     public final void addLineItem(String productId, int productQty,
@@ -37,34 +43,12 @@ public class Receipt {
         temp = null;
     }
     public final void doOutput(){
-        saleOutputStrategy.outputSale(getReceiptFormat());
-        receiptOutputStrategy.outputSaleReceipt(getReceiptFormat());
-        
+        // does output base on configured format strategy objects
+        receiptOutputStrategy.outputSaleReceipt(receiptOutputFormatStrategy.
+                getFormattedReceiptContent(customer, lineItems));
+        saleOutputStrategy.outputSale(saleOutputFormatStrategy.
+                getFormattedSaleOutput(customer, lineItems)); 
     }
-    private String getReceiptFormat(){
-        Date date = new Date();
-        String receiptFormat = "Kohls Department Store\n"+
-                date.getDate()+"\n"+ "Customer: " + customer.getFirstName()
-                + " " + customer.getLastName() + " ";
-        receiptFormat += ;
-        
-        
-        return receiptFormat;
-    }
-    private String getLineItemsFormatted(){
-        DecimalFormat format = new DecimalFormat();
-        String formattedLineItems = "Product\tPrice\tQty\tSub Total\tDiscount\t"
-                + "Line Total\n-------\t-----";
-        
-        for(LineItem lineItem : lineItems){
-            
-        }
-    }
-    private String getTotalsFormatted(){
-        DecimalFormat format = new DecimalFormat();
-        
-    }
-
     public final Customer getCustomer() {
         return customer;
     }
@@ -80,7 +64,7 @@ public class Receipt {
 
     public final void setReceiptOutputStrategy(ReceiptOutputStrategy 
             receiptOutputStrategy) {
-        //Requires Output
+        //Requires validation
         this.receiptOutputStrategy = receiptOutputStrategy;
     }
 
@@ -90,7 +74,7 @@ public class Receipt {
 
     public final void setSaleOutputStrategy(SaleOutputStrategy 
             saleOutputStrategy) {
-        //Requires Output
+        //Requires validation
         this.saleOutputStrategy = saleOutputStrategy;
     }    
 
@@ -102,7 +86,25 @@ public class Receipt {
         //Requires validation
         this.lineItems = lineItems;
     }
-    public static void main(String[] args) {
-        
+
+
+    public final ReceiptOutputFormatStrategy getReceiptOuputFormatStrategy() {
+        return receiptOutputFormatStrategy;
+    }
+
+    public final void setReceiptOuputFormatStrategy(ReceiptOutputFormatStrategy 
+            receiptOutputFormatStrategy) {
+        //Requires validation
+        this.receiptOutputFormatStrategy = receiptOutputFormatStrategy;
+    }
+
+    public final SaleOutputFormatStrategy getSaleOutputFormatStrategy() {
+        return saleOutputFormatStrategy;
+    }
+
+    public final void setSaleOutputFormatStrategy(SaleOutputFormatStrategy 
+            saleOutputFormatStrategy) {
+        //Requires validation
+        this.saleOutputFormatStrategy = saleOutputFormatStrategy;
     }
 }

@@ -46,11 +46,11 @@ public class PercentageOffBasedOnQuantityDiscount implements DiscountStrategy {
     }
 
     @Override
-    public String getPromotionName() {
+    public final String getPromotionName() {
         return promotionName;
     }
 
-    public void setPromotionName(String promotionName) {
+    public final void setPromotionName(String promotionName) {
         //Requires validation
         this.promotionName = promotionName;
     }

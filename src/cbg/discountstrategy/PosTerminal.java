@@ -9,17 +9,21 @@ public class PosTerminal {
 
     private Receipt receipt;
 
-    public final void startNewSale(String customerId, ReceiptOutputStrategy
-            receiptOutputStrategy, SaleOutputStrategy saleOutputStrategy,
-                DataAccessStrategy dataAccessStrategy) {
+    public final void startNewSale(String customerId, ReceiptOutputStrategy 
+            receiptOutputStrategy, ReceiptOutputFormatStrategy 
+                receiptOuputFormatStrategy, SaleOutputStrategy 
+                    saleOutputStrategy, SaleOutputFormatStrategy
+                        saleOutputFormatStrategy, DataAccessStrategy
+                            dataAccessStrategy) {
         Receipt newReceipt = new Receipt(customerId, receiptOutputStrategy,
-                saleOutputStrategy, dataAccessStrategy);
+                receiptOuputFormatStrategy, saleOutputStrategy,
+                saleOutputFormatStrategy, dataAccessStrategy);
         this.receipt = newReceipt;
     }
 
     public final void addProductToSale(String productId, int productQty,
             DataAccessStrategy dataAccessStrategy) {
-        //Requires validation
+        receipt.addLineItem(productId, productQty, dataAccessStrategy);
 
     }
 
