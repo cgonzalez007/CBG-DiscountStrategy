@@ -6,6 +6,7 @@ package cbg.discountstrategy;
  * @author cgonz
  */
 public class PercentageOffDiscount implements DiscountStrategy {
+
     private double percentageOff;
     private String promotionName;
 
@@ -16,8 +17,8 @@ public class PercentageOffDiscount implements DiscountStrategy {
 
     @Override
     public final double getDiscount(double unitPrice, int productQty) {
-       // requires validation!
-       return (unitPrice*percentageOff) * productQty;
+        // requires validation!
+        return (unitPrice * percentageOff) * productQty;
     }
 
     public final double getPercentageOff() {
@@ -38,5 +39,5 @@ public class PercentageOffDiscount implements DiscountStrategy {
         //Requires validation
         this.promotionName = promotionName;
     }
-    
+
 }

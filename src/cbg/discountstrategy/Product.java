@@ -12,7 +12,7 @@ public class Product {
     private double unitPrice;
     private DiscountStrategy discountStrategy;
 
-    public Product(String productId, String productName, double unitPrice, 
+    public Product(String productId, String productName, double unitPrice,
             DiscountStrategy discountStrategy) {
         this.productId = productId;
         this.productName = productName;
@@ -54,6 +54,5 @@ public class Product {
     public final void setDiscountStrategy(DiscountStrategy discountStrategy) {
         this.discountStrategy = discountStrategy;
     }
-    
 
 }

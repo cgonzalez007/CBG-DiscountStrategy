@@ -10,22 +10,21 @@ public class Startup {
     public static void main(String[] args) {
         //Configurations
         DataAccessStrategy dataAccess = new InMemoryDataStorage();
-        
+
         ReceiptOutputStrategy receiptOutputStrategy = new 
             ConsoleReceiptOutput();
-        ReceiptOutputFormatStrategy receiptOutputFormatStrategy = new 
+        ReceiptOutputFormatStrategy receiptOutputFormatStrategy = new
             ConsoleReceiptFormat1();
-        
+
         SaleOutputStrategy saleOutputStrategy = new GuiSaleOutput();
         SaleOutputFormatStrategy saleOutputFormatStrategy = new 
             GuiSaleOutputFormat1();
-        
-        
+
         PosTerminal posTerminal = new PosTerminal();
 
         posTerminal.startNewSale("C002", receiptOutputStrategy,
-                receiptOutputFormatStrategy,saleOutputStrategy,
-                    saleOutputFormatStrategy,dataAccess);
+                receiptOutputFormatStrategy, saleOutputStrategy,
+                saleOutputFormatStrategy, dataAccess);
         posTerminal.addProductToSale("P101", 2, dataAccess);
         posTerminal.addProductToSale("P102", 23, dataAccess);
         posTerminal.addProductToSale("P103", 14, dataAccess);
@@ -33,4 +32,5 @@ public class Startup {
         posTerminal.closeSale();
 
     }
+    
 }

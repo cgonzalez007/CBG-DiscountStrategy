@@ -2,6 +2,8 @@
 package cbg.discountstrategy;
 
 import java.text.DecimalFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  *
@@ -14,19 +16,22 @@ public class ConsoleReceiptFormat1 implements ReceiptOutputFormatStrategy {
             LineItem[] lineItems) {
         DecimalFormat df = new DecimalFormat("$0.00");
         String receiptFormat = null;
+        LocalDateTime todaysDate = LocalDateTime.now();
+        DateTimeFormatter dateFormatter
+                = DateTimeFormatter.ofPattern("MM/dd/yyyy h:mm:ss a");
 
         receiptFormat = "\t\tKohl's Department Store\n\t\t"
-                + "09/30/2016 12:37:23 PM" + "\n\n" + "\t\tCustomer: "
-                + customer.getFirstName() + " " + customer.getLastName() + 
-                "\n\n";
+                + todaysDate.format(dateFormatter) + "\n\n" + "\t\tCustomer: "
+                + customer.getFirstName() + " " + customer.getLastName()
+                + "\n\n";
         receiptFormat += "ProdID\tProduct\t\tPrice\t\tQty\t"
                 + "Before Savings\n======\t=======\t\t=====\t\t===\t==========="
                 + "===\n";
         for (LineItem lineItem : lineItems) {
             receiptFormat
                     += lineItem.getProduct().getProductId() + "\t"
-                    + lineItem.getProduct().getProductName() +
-                    "\t"+ df.format(lineItem.getProduct().getUnitPrice())
+                    + lineItem.getProduct().getProductName()
+                    + "\t" + df.format(lineItem.getProduct().getUnitPrice())
                     + "\t\t" + lineItem.getProductQty() + "\t"
                     + df.format(lineItem.getSubTotal()) + "\n"
                     + "\n\tPromotion: \t" + lineItem.getProduct().

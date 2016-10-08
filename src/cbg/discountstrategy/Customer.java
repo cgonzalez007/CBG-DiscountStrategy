@@ -17,7 +17,7 @@ public class Customer {
         this.lastName = lastName;
         this.firstName = firstName;
     }
-    
+
     public final String getCustomerId() {
         return CustomerId;
     }
@@ -44,5 +44,5 @@ public class Customer {
         //Requires validation
         this.firstName = firstName;
     }
-    
+
 }

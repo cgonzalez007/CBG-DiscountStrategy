@@ -6,34 +6,36 @@ package cbg.discountstrategy;
  * @author cgonz
  */
 public class PercentageOffBasedOnQuantityDiscount implements DiscountStrategy {
-    private int minQtyNeeded;
+
+    private int qtyNeeded;
     private double percentageOff;
     private final double NO_DISCOUNT = 0;
     private String promotionName;
 
-    public PercentageOffBasedOnQuantityDiscount(int minQtyNeeded, double percentageOff, String promotionName) {
-        this.minQtyNeeded = minQtyNeeded;
+    public PercentageOffBasedOnQuantityDiscount(int qtyNeeded, double 
+            percentageOff, String promotionName) {
+        this.qtyNeeded = qtyNeeded;
         this.percentageOff = percentageOff;
         this.promotionName = promotionName;
     }
-    
+
     @Override
     public final double getDiscount(double unitPrice, int productQty) {
         // requires validation! Do not use this for final version!!!
-        if (productQty>= minQtyNeeded){
-            return (unitPrice*minQtyNeeded) * percentageOff;
-        } else{
+        if (productQty >= qtyNeeded) {
+            return (unitPrice * qtyNeeded) * percentageOff;
+        } else {
             return NO_DISCOUNT;
         }
     }
 
-    public final int getMinQtyNeeded() {
-        return minQtyNeeded;
+    public final int getQtyNeeded() {
+        return qtyNeeded;
     }
 
-    public final void setMinQtyNeeded(int minQtyNeeded) {
+    public final void setQtyNeeded(int qtyNeeded) {
         //Requires validation
-        this.minQtyNeeded = minQtyNeeded;
+        this.qtyNeeded = qtyNeeded;
     }
 
     public final double getPercentageOff() {
@@ -54,5 +56,5 @@ public class PercentageOffBasedOnQuantityDiscount implements DiscountStrategy {
         //Requires validation
         this.promotionName = promotionName;
     }
-    
+
 }

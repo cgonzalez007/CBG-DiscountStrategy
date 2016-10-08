@@ -5,7 +5,8 @@ package cbg.discountstrategy;
  *
  * @author cgonz
  */
-public class FlatAmountDiscount implements DiscountStrategy{
+public class FlatAmountDiscount implements DiscountStrategy {
+
     private double flatAmount;
     private String promotionName;
 
@@ -13,12 +14,11 @@ public class FlatAmountDiscount implements DiscountStrategy{
         this.flatAmount = flatAmount;
         this.promotionName = promotionName;
     }
-    
-    
+
     @Override
     public final double getDiscount(double unitPrice, int productQty) {
         // requires validation!!! 
-        return flatAmount * productQty; 
+        return flatAmount * productQty;
     }
 
     public final double getFlatAmount() {
@@ -39,5 +39,5 @@ public class FlatAmountDiscount implements DiscountStrategy{
         //Requires validation
         this.promotionName = promotionName;
     }
-    
+
 }
