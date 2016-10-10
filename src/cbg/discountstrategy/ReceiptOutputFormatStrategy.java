@@ -7,5 +7,6 @@ package cbg.discountstrategy;
 public interface ReceiptOutputFormatStrategy {
 
     public abstract String getFormattedReceiptContent(Customer customer,
-            LineItem[] lineItems);
+            LineItem[] lineItems, double saleSubTotal, double saleSavingsTotal,
+            double saleTaxTotal, double saleGrandTotal, int totalItemsSold);
 }

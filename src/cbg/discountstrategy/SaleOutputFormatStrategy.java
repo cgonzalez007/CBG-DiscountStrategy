@@ -8,5 +8,6 @@ package cbg.discountstrategy;
 public interface SaleOutputFormatStrategy {
 
     public abstract String getFormattedSaleOutput(Customer customer,
-            LineItem[] lineItems);
+            LineItem[] lineItems, double saleSubTotal, double saleSavingsTotal,
+            double saleTaxTotal, double saleGrandTotal, int totalItemsSold);
 }

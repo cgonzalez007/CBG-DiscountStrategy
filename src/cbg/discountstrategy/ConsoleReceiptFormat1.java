@@ -13,7 +13,8 @@ public class ConsoleReceiptFormat1 implements ReceiptOutputFormatStrategy {
 
     @Override
     public final String getFormattedReceiptContent(Customer customer,
-            LineItem[] lineItems) {
+            LineItem[] lineItems, double saleSubTotal, double saleSavingsTotal,
+            double saleTaxTotal, double saleGrandTotal, int totalItemsSold) {
         DecimalFormat df = new DecimalFormat("$0.00");
         String receiptFormat = null;
         LocalDateTime todaysDate = LocalDateTime.now();
@@ -23,6 +24,7 @@ public class ConsoleReceiptFormat1 implements ReceiptOutputFormatStrategy {
         receiptFormat = "\t\tKohl's Department Store\n\t\t"
                 + todaysDate.format(dateFormatter) + "\n\n" + "\t\tCustomer: "
                 + customer.getFirstName() + " " + customer.getLastName()
+                + "\n\t\tCustomer ID: " + customer.getCustomerId()
                 + "\n\n";
         receiptFormat += "ProdID\tProduct\t\tPrice\t\tQty\t"
                 + "Before Savings\n======\t=======\t\t=====\t\t===\t==========="
@@ -41,17 +43,13 @@ public class ConsoleReceiptFormat1 implements ReceiptOutputFormatStrategy {
                     + "\n\tAfter Savings: \t"
                     + df.format(lineItem.getLineTotal()) + "\n\n";
         }
-        double subTotal = 0;
-        double totalSavings = 0;
-        double grandTotal = 0;
-        for (LineItem lineItem : lineItems) {
-            subTotal += lineItem.getLineTotal();
-            totalSavings += lineItem.getDiscountTotal();
-            grandTotal += lineItem.getLineTotal();
-        }
-        receiptFormat += "\n\t\t\t\tTotal Savings:  " + df.format(totalSavings)
-                + "\n\t\t\t\tSub Total:      " + df.format(subTotal) + "\n"
-                + "\t\t\t\tGrand Total:    " + df.format(grandTotal) + "\n";
+        
+        receiptFormat += 
+                  "\n\t\t\t\tTotal Items Sold: " + totalItemsSold
+                + "\n\t\t\t\tTotal Savings:    " + df.format(saleSavingsTotal)
+                + "\n\t\t\t\tSub Total:        " + df.format(saleSubTotal)
+                + "\n\t\t\t\tTax:              " + df.format(saleTaxTotal)
+                + "\n\t\t\t\tTotal:            " + df.format(saleGrandTotal);
 
         receiptFormat += "\n\n\t\tHave a Nice Day!";
 

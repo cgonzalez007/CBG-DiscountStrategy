@@ -8,7 +8,9 @@ package cbg.discountstrategy;
 public class GuiSaleOutputFormat1 implements SaleOutputFormatStrategy {
 
     @Override
-    public final String getFormattedSaleOutput(Customer customer, LineItem[] lineItems) {
+    public String getFormattedSaleOutput(Customer customer,
+            LineItem[] lineItems, double saleSubTotal, double saleSavingsTotal,
+            double saleTaxTotal, double saleGrandTotal, int totalItemsSold) {
         String formattedSaleOutput = "Transaction Complete";
 
         return formattedSaleOutput;

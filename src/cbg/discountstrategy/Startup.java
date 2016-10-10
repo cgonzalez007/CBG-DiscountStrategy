@@ -18,7 +18,7 @@ public class Startup {
 
         SaleOutputStrategy saleOutputStrategy = new GuiSaleOutput();
         SaleOutputFormatStrategy saleOutputFormatStrategy = new 
-            GuiSaleOutputFormat1();
+            GuiSaleOutputFormat2();
 
         PosTerminal posTerminal = new PosTerminal();
 
