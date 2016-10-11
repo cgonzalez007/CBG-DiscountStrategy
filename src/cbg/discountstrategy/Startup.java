@@ -14,7 +14,7 @@ public class Startup {
         ReceiptOutputStrategy receiptOutputStrategy = new 
             ConsoleReceiptOutput();
         ReceiptOutputFormatStrategy receiptOutputFormatStrategy = new
-            ConsoleReceiptFormat1();
+            ConsoleReceiptFormat2();
 
         SaleOutputStrategy saleOutputStrategy = new GuiSaleOutput();
         SaleOutputFormatStrategy saleOutputFormatStrategy = new 

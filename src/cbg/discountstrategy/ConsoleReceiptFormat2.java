@@ -1,7 +1,7 @@
 
 package cbg.discountstrategy;
 
-import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -9,21 +9,21 @@ import java.time.format.DateTimeFormatter;
  *
  * @author cgonz
  */
-public class ConsoleReceiptFormat1 implements ReceiptOutputFormatStrategy {
+public class ConsoleReceiptFormat2 implements ReceiptOutputFormatStrategy {
 
     @Override
     public final String getFormattedReceiptContent(Customer customer,
             LineItem[] lineItems, double saleSubTotal, double saleSavingsTotal,
             double saleTaxTotal, double saleGrandTotal, int totalItemsSold) {
-        DecimalFormat df = new DecimalFormat("$0.00");
         LocalDateTime todaysDate = LocalDateTime.now();
+        NumberFormat money = NumberFormat.getCurrencyInstance();
         DateTimeFormatter dateFormatter
                 = DateTimeFormatter.ofPattern("MM/dd/yyyy h:mm:ss a");
 
         String receiptFormat = "\t\tKohl's Department Store\n\t\t"
                 + todaysDate.format(dateFormatter) + "\n\n" + "\t\tCustomer: "
                 + customer.getFirstName() + " " + customer.getLastName()
-                + "\n\t\tCustomer ID: " + customer.getCustomerId()
+                + "\n\t\t      ID: " + customer.getCustomerId()
                 + "\n\n";
         receiptFormat += "ProdID\tProduct\t\tPrice\t\tQty\t"
                 + "Before Savings\n======\t=======\t\t=====\t\t===\t==========="
@@ -32,23 +32,24 @@ public class ConsoleReceiptFormat1 implements ReceiptOutputFormatStrategy {
             receiptFormat
                     += lineItem.getProduct().getProductId() + "\t"
                     + lineItem.getProduct().getProductName()
-                    + "\t" + df.format(lineItem.getProduct().getUnitPrice())
+                    + "\t" + money.format(lineItem.getProduct().getUnitPrice())
                     + "\t\t" + lineItem.getProductQty() + "\t"
-                    + df.format(lineItem.getSubTotal()) + "\n"
+                    + money.format(lineItem.getSubTotal()) + "\n"
                     + "\n\tPromotion: \t" + lineItem.getProduct().
                     getDiscountStrategy().getPromotionName()
-                    + "\n\tYou Save: \t" + df.format(lineItem.
+                    + "\n\tYou Save: \t" + money.format(lineItem.
                             getDiscountTotal())
                     + "\n\tAfter Savings: \t"
-                    + df.format(lineItem.getLineTotal()) + "\n\n";
+                    + money.format(lineItem.getLineTotal()) + "\n\n";
         }
         
         receiptFormat += 
                   "\n\t\t\t\tTotal Items Sold: " + totalItemsSold
-                + "\n\t\t\t\tTotal Savings:    " + df.format(saleSavingsTotal)
-                + "\n\t\t\t\tSub Total:        " + df.format(saleSubTotal)
-                + "\n\t\t\t\tTax:              " + df.format(saleTaxTotal)
-                + "\n\t\t\t\tTotal:            " + df.format(saleGrandTotal);
+                + "\n\t\t\t\tTotal Savings:    " + money.format
+                    (saleSavingsTotal)
+                + "\n\t\t\t\tSub Total:        " + money.format(saleSubTotal)
+                + "\n\t\t\t\tTax:              " + money.format(saleTaxTotal)
+                + "\n\t\t\t\tTotal:            " + money.format(saleGrandTotal);
 
         receiptFormat += "\n\n\t\tHave a Nice Day!";
 
