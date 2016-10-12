@@ -14,14 +14,16 @@ public class ConsoleReceiptFormat1 implements ReceiptFormatStrategy {
     @Override
     public final String getFormattedReceiptContent(Customer customer,
             LineItem[] lineItems, double saleSubTotal, double saleSavingsTotal,
-            double saleTaxTotal, double saleGrandTotal, int totalItemsSold) {
+            double saleTaxTotal, double saleGrandTotal, int totalItemsSold,
+            LocalDateTime todaysDateAndTime) {
         DecimalFormat df = new DecimalFormat("$0.00");
-        LocalDateTime todaysDate = LocalDateTime.now();
+        // What will format the LocatTimeDate object
         DateTimeFormatter dateFormatter
                 = DateTimeFormatter.ofPattern("MM/dd/yyyy h:mm:ss a");
 
         String receiptFormat = "\t\tKohl's Department Store\n\t\t"
-                + todaysDate.format(dateFormatter) + "\n\n" + "\t\tCustomer: "
+                + todaysDateAndTime.format(dateFormatter) + "\n\n" + 
+                "\t\tCustomer: "
                 + customer.getFirstName() + " " + customer.getLastName()
                 + "\n\t\tCustomer ID: " + customer.getCustomerId()
                 + "\n\n";

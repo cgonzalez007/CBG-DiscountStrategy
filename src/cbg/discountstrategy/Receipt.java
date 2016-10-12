@@ -1,6 +1,8 @@
 
 package cbg.discountstrategy;
 
+import java.time.LocalDateTime;
+
 
 /**
  *
@@ -53,7 +55,7 @@ public class Receipt {
         receiptOutput.outputSaleReceipt(receiptFormat.
                 getFormattedReceiptContent(customer, lineItems,
                 getSaleSubTotal(), getSaleSavingsTotal(), getSaleTaxTotal(),
-                getSaleGrandTotal(), getTotalItemsSold()));
+                getSaleGrandTotal(), getTotalItemsSold(),getTodaysDateAndTime()));
 
         endOfSaleMessageOutput.outputEndOfSaleMessage(endOfSaleMessageFormat.
                 getFormattedEndOfSaleMessage(customer, lineItems, 
@@ -153,6 +155,9 @@ public class Receipt {
          //Requires validation
         this.endOfSaleMessageFormat = endOfSaleMessageFormat;
     }
-    
+    // get an unformatted date
+    public final LocalDateTime getTodaysDateAndTime() {  
+        return LocalDateTime.now();
+    }
     
 }
