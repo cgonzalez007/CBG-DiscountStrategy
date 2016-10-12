@@ -9,7 +9,7 @@ import java.time.format.DateTimeFormatter;
  *
  * @author cgonz
  */
-public class ConsoleReceiptFormat1 implements ReceiptOutputFormatStrategy {
+public class ConsoleReceiptFormat1 implements ReceiptFormatStrategy {
 
     @Override
     public final String getFormattedReceiptContent(Customer customer,

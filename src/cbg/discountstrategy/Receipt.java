@@ -11,50 +11,54 @@ public class Receipt {
 
     private Customer customer;
     private LineItem[] lineItems;
-    private ReceiptOutputStrategy receiptOutputStrategy;
-    private ReceiptOutputFormatStrategy receiptOutputFormatStrategy;
-    private SaleOutputStrategy saleOutputStrategy;
-    private SaleOutputFormatStrategy saleOutputFormatStrategy;
+    private ReceiptOutputStrategy receiptOutput;
+    private ReceiptFormatStrategy receiptFormat;
+    private EndOfSaleMessageOutputStrategy endOfSaleMessageOutput;
+    private EndOfSaleMessageFormatStrategy endOfSaleMessageFormat;
 
     public Receipt(String customerId, ReceiptOutputStrategy 
-            receiptOutputStrategy, ReceiptOutputFormatStrategy 
-            receiptOutputFormatStrategy, SaleOutputStrategy 
-            saleOutputStrategy, SaleOutputFormatStrategy 
-            saleOutputFormatStrategy, DataAccessStrategy dataAccessStrategy) {
+            receiptOutput, ReceiptFormatStrategy 
+            receiptFormat, EndOfSaleMessageOutputStrategy 
+            endOfSaleMessageOutput, EndOfSaleMessageFormatStrategy 
+            endOfSaleMessageFormat, DataAccessStrategy dataAccess) {
         //Requires validation
-        this.receiptOutputStrategy = receiptOutputStrategy;
-        this.receiptOutputFormatStrategy = receiptOutputFormatStrategy;
-        this.saleOutputStrategy = saleOutputStrategy;
-        this.saleOutputFormatStrategy = saleOutputFormatStrategy;
+        this.receiptOutput = receiptOutput;
+        this.receiptFormat = receiptFormat;
+        this.endOfSaleMessageOutput = endOfSaleMessageOutput;
+        this.endOfSaleMessageFormat = endOfSaleMessageFormat;
 
-        this.customer = dataAccessStrategy.findCustomer(customerId);
+        this.customer = dataAccess.findCustomer(customerId);
 
         LineItem[] newLineItems = new LineItem[0];
         this.lineItems = newLineItems;
     }
-
     public final void addLineItem(String productId, int productQty,
-            DataAccessStrategy dataAccessStrategy) {
+            DataAccessStrategy dataAccess){
+        LineItem addedLineItem = new LineItem(dataAccess.findProduct
+        (productId), productQty);
+        addLineItemToArray(addedLineItem);
+    }
+    
+    private void addLineItemToArray(LineItem addedLineItem) {
         //Requires validation
         LineItem[] temp = new LineItem[lineItems.length + 1];
         System.arraycopy(lineItems, 0, temp, 0, lineItems.length);
-        temp[temp.length - 1] = new LineItem(dataAccessStrategy.findProduct
-        (productId), productQty);
+        temp[temp.length - 1] = addedLineItem;
         lineItems = temp;
         temp = null;
     }
 
     public final void doOutput() {
         // does output base on configured format strategy objects
-        receiptOutputStrategy.outputSaleReceipt(receiptOutputFormatStrategy.
+        receiptOutput.outputSaleReceipt(receiptFormat.
                 getFormattedReceiptContent(customer, lineItems,
-                    getSaleSubTotal(), getSaleSavingsTotal(), getSaleTaxTotal(),
-                         getSaleGrandTotal(), getTotalItemsSold()));
+                getSaleSubTotal(), getSaleSavingsTotal(), getSaleTaxTotal(),
+                getSaleGrandTotal(), getTotalItemsSold()));
 
-        saleOutputStrategy.outputSale(saleOutputFormatStrategy.
-                getFormattedSaleOutput(customer, lineItems,
-                    getSaleSubTotal(), getSaleSavingsTotal(), getSaleTaxTotal(),
-                         getSaleGrandTotal(), getTotalItemsSold()));
+        endOfSaleMessageOutput.outputEndOfSaleMessage(endOfSaleMessageFormat.
+                getFormattedEndOfSaleMessage(customer, lineItems, 
+                getSaleSubTotal(), getSaleSavingsTotal(), getSaleTaxTotal(), 
+                getSaleGrandTotal(), getTotalItemsSold()));
     }
 
     /*Helper methods that calculate certain parts of the Receipt(sub total,
@@ -102,25 +106,7 @@ public class Receipt {
         //Requires validation
         this.customer = customer;
     }
-
-    public final ReceiptOutputStrategy getReceiptOutputStrategy() {
-        return receiptOutputStrategy;
-    }
-
-    public final void setReceiptOutputStrategy(ReceiptOutputStrategy receiptOutputStrategy) {
-        //Requires validation
-        this.receiptOutputStrategy = receiptOutputStrategy;
-    }
-
-    public final SaleOutputStrategy getSaleOutputStrategy() {
-        return saleOutputStrategy;
-    }
-
-    public final void setSaleOutputStrategy(SaleOutputStrategy saleOutputStrategy) {
-        //Requires validation
-        this.saleOutputStrategy = saleOutputStrategy;
-    }
-
+    
     public final LineItem[] getLineItems() {
         return lineItems;
     }
@@ -130,21 +116,43 @@ public class Receipt {
         this.lineItems = lineItems;
     }
 
-    public final ReceiptOutputFormatStrategy getReceiptOuputFormatStrategy() {
-        return receiptOutputFormatStrategy;
+    public final ReceiptOutputStrategy getReceiptOutput() {
+        return receiptOutput;
     }
 
-    public final void setReceiptOuputFormatStrategy(ReceiptOutputFormatStrategy receiptOutputFormatStrategy) {
+    public final void setReceiptOutput(ReceiptOutputStrategy receiptOutput) {
+         //Requires validation
+        this.receiptOutput = receiptOutput;
+    }
+
+    public final ReceiptFormatStrategy getReceiptFormat() {
+        return receiptFormat;
+    }
+
+    public final void setReceiptFormat(ReceiptFormatStrategy receiptFormat) {
+        //Requires Validation
+        this.receiptFormat = receiptFormat;
+    }
+
+    public final EndOfSaleMessageOutputStrategy getEndOfSaleMessageOutput() {
+        return endOfSaleMessageOutput;
+    }
+
+    public final void setEndOfSaleMessageOutput(EndOfSaleMessageOutputStrategy 
+            endOfSaleMessageOutput) {
         //Requires validation
-        this.receiptOutputFormatStrategy = receiptOutputFormatStrategy;
+        this.endOfSaleMessageOutput = endOfSaleMessageOutput;
     }
 
-    public final SaleOutputFormatStrategy getSaleOutputFormatStrategy() {
-        return saleOutputFormatStrategy;
+    public final EndOfSaleMessageFormatStrategy getEndOfSaleMessageFormat() {
+        return endOfSaleMessageFormat;
     }
 
-    public final void setSaleOutputFormatStrategy(SaleOutputFormatStrategy saleOutputFormatStrategy) {
-        //Requires validation
-        this.saleOutputFormatStrategy = saleOutputFormatStrategy;
+    public final void setEndOfSaleMessageFormat(EndOfSaleMessageFormatStrategy
+            endOfSaleMessageFormat) {
+         //Requires validation
+        this.endOfSaleMessageFormat = endOfSaleMessageFormat;
     }
+    
+    
 }

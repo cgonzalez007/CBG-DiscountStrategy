@@ -24,7 +24,7 @@ public class InMemoryDataStorage implements DataAccessStrategy {
     };
 
     @Override
-    public Customer findCustomer(String customerId) {
+    public final Customer findCustomer(String customerId) {
         //requires validation!
         Customer foundCustomer = null;
         for (Customer customer : customers) {
@@ -36,7 +36,7 @@ public class InMemoryDataStorage implements DataAccessStrategy {
     }
 
     @Override
-    public Product findProduct(String productId) {
+    public final Product findProduct(String productId) {
         // requires validation!
         Product foundProduct = null;
         for (Product product : products) {

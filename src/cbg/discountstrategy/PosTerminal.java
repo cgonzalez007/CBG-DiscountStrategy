@@ -10,20 +10,21 @@ public class PosTerminal {
     private Receipt receipt;
 
     public final void startNewSale(String customerId, ReceiptOutputStrategy 
-            receiptOutputStrategy, ReceiptOutputFormatStrategy 
-                receiptOuputFormatStrategy, SaleOutputStrategy 
-                    saleOutputStrategy, SaleOutputFormatStrategy
-                        saleOutputFormatStrategy, DataAccessStrategy
-                            dataAccessStrategy) {
-        Receipt newReceipt = new Receipt(customerId, receiptOutputStrategy,
-                receiptOuputFormatStrategy, saleOutputStrategy,
-                saleOutputFormatStrategy, dataAccessStrategy);
+            receiptOutput, ReceiptFormatStrategy 
+            receiptFormat, EndOfSaleMessageOutputStrategy 
+            endOfSaleMessageOutput, EndOfSaleMessageFormatStrategy
+            endOfSaleMessageFormat, DataAccessStrategy
+            dataAccess) {
+
+        Receipt newReceipt = new Receipt(customerId, receiptOutput,
+                receiptFormat, endOfSaleMessageOutput,
+                endOfSaleMessageFormat, dataAccess);
         this.receipt = newReceipt;
     }
 
     public final void addProductToSale(String productId, int productQty,
-            DataAccessStrategy dataAccessStrategy) {
-        receipt.addLineItem(productId, productQty, dataAccessStrategy);
+            DataAccessStrategy dataAccess) {
+        receipt.addLineItem(productId, productQty, dataAccess);
 
     }
 
