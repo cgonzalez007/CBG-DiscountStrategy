@@ -2,7 +2,7 @@
 package cbg.discountstrategy;
 
 import java.time.LocalDateTime;
-
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -28,17 +28,23 @@ public class Receipt {
         this.receiptFormat = receiptFormat;
         this.endOfSaleMessageOutput = endOfSaleMessageOutput;
         this.endOfSaleMessageFormat = endOfSaleMessageFormat;
-
-        this.customer = dataAccess.findCustomer(customerId);
-
+        try{
+        setCustomer(dataAccess.findCustomer(customerId));
+        }catch(InvalidCustomerIdException ic){
+            JOptionPane.showMessageDialog(null, ic.getMessage());
+        }
         LineItem[] newLineItems = new LineItem[0];
         this.lineItems = newLineItems;
     }
     public final void addLineItem(String productId, int productQty,
             DataAccessStrategy dataAccess){
+        try{
         LineItem addedLineItem = new LineItem(dataAccess.findProduct
         (productId), productQty);
         addLineItemToArray(addedLineItem);
+        }catch(InvalidProductIdException ip){
+            JOptionPane.showMessageDialog(null, ip.getMessage());
+        }
     }
     
     private void addLineItemToArray(LineItem addedLineItem) {

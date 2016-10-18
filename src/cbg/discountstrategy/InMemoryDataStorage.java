@@ -10,7 +10,7 @@ public class InMemoryDataStorage implements DataAccessStrategy {
     Customer[] customers = new Customer[]{
         new Customer("C001", "Trebek", "Alex"),
         new Customer("C002", "Connery", "Sean"),
-        new Customer("C103", "Reynolds", "Burt")
+        new Customer("C003", "Reynolds", "Burt")
     };
     Product[] products = new Product[]{
         new Product("P101", "Men's Socks", 19.95, new NoDiscount()),
@@ -24,7 +24,8 @@ public class InMemoryDataStorage implements DataAccessStrategy {
     };
 
     @Override
-    public final Customer findCustomer(String customerId) {
+    public final Customer findCustomer(String customerId) throws 
+            InvalidCustomerIdException{
         //requires validation!
         Customer foundCustomer = null;
         for (Customer customer : customers) {
@@ -32,17 +33,24 @@ public class InMemoryDataStorage implements DataAccessStrategy {
                 foundCustomer = customer;
             }
         }
+        if(foundCustomer==null){
+            throw new InvalidCustomerIdException();
+        }
         return foundCustomer;
     }
 
     @Override
-    public final Product findProduct(String productId) {
+    public final Product findProduct(String productId) throws
+            InvalidProductIdException {
         // requires validation!
         Product foundProduct = null;
         for (Product product : products) {
             if (productId.equals(product.getProductId())) {
                 foundProduct = product;
             }
+        }
+        if(foundProduct==null){
+            throw new InvalidProductIdException();
         }
         return foundProduct;
     }
