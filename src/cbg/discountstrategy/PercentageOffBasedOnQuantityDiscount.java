@@ -14,9 +14,9 @@ public class PercentageOffBasedOnQuantityDiscount implements DiscountStrategy {
 
     public PercentageOffBasedOnQuantityDiscount(int qtyNeeded, double 
             percentageOff, String promotionName) {
-        this.qtyNeeded = qtyNeeded;
-        this.percentageOff = percentageOff;
-        this.promotionName = promotionName;
+        setQtyNeeded(qtyNeeded);
+        setPercentageOff(percentageOff);
+        setPromotionName(promotionName);
     }
 
     @Override
@@ -33,8 +33,13 @@ public class PercentageOffBasedOnQuantityDiscount implements DiscountStrategy {
         return qtyNeeded;
     }
 
-    public final void setQtyNeeded(int qtyNeeded) {
+    public final void setQtyNeeded(int qtyNeeded) throws 
+            IllegalArgumentException{
         //Requires validation
+        if(qtyNeeded < 2){
+            throw new IllegalArgumentException("Quantity needed must be greater"
+                    + " than 2");
+        }
         this.qtyNeeded = qtyNeeded;
     }
 
@@ -42,8 +47,13 @@ public class PercentageOffBasedOnQuantityDiscount implements DiscountStrategy {
         return percentageOff;
     }
 
-    public final void setPercentageOff(double percentageOff) {
+    public final void setPercentageOff(double percentageOff) throws 
+            IllegalArgumentException{
         //Requires validation
+        if(percentageOff < 0 || percentageOff > 1){
+            throw new IllegalArgumentException("Invalid percentage: Percentage "
+                    + "must be greater than 0, and less than 1");
+        }
         this.percentageOff = percentageOff;
     }
 
@@ -52,8 +62,13 @@ public class PercentageOffBasedOnQuantityDiscount implements DiscountStrategy {
         return promotionName;
     }
 
-    public final void setPromotionName(String promotionName) {
+    public final void setPromotionName(String promotionName) throws
+            IllegalArgumentException{
         //Requires validation
+        if(promotionName.length() < 5){
+            throw new IllegalArgumentException("Promotion name must be "
+                    + "greater than 5 characters");
+        }
         this.promotionName = promotionName;
     }
 

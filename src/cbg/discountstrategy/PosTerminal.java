@@ -19,7 +19,7 @@ public class PosTerminal {
         Receipt newReceipt = new Receipt(customerId, receiptOutput,
                 receiptFormat, endOfSaleMessageOutput,
                 endOfSaleMessageFormat, dataAccess);
-        this.receipt = newReceipt;
+        setReceipt(newReceipt);
     }
 
     public final void addProductToSale(String productId, int productQty,

@@ -12,7 +12,8 @@ public class LineItem {
 
     public LineItem(Product product, int productQty) {
         this.product = product;
-        this.productQty = productQty;
+        setProduct(product);
+        setProductQty(productQty);
     }
 
     public final Product getProduct() {
@@ -28,8 +29,13 @@ public class LineItem {
         return productQty;
     }
 
-    public final void setProductQty(int productQty) {
+    public final void setProductQty(int productQty) throws 
+            IllegalArgumentException {
         //Requires validation
+        if(productQty <0){
+            throw new IllegalArgumentException("Sorry, quantity must be 1 or "
+                    + "greater");
+        }
         this.productQty = productQty;
     }
 

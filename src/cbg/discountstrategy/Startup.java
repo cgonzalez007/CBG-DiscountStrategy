@@ -24,7 +24,7 @@ public class Startup {
         posTerminal.startNewSale("C003", receiptOutput,
                 receiptFormat, endOfSaleMessageOutput,
                 endOfSaleMessageFormat, dataAccess);
-        posTerminal.addProductToSale("P101", 9, dataAccess);
+        posTerminal.addProductToSale("P101", 5, dataAccess);
         posTerminal.addProductToSale("P102", 2, dataAccess);
         posTerminal.addProductToSale("P103", 14, dataAccess);
         posTerminal.addProductToSale("P104", 23, dataAccess);

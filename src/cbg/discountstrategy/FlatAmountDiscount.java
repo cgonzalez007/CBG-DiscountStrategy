@@ -11,8 +11,8 @@ public class FlatAmountDiscount implements DiscountStrategy {
     private String promotionName;
 
     public FlatAmountDiscount(double flatAmount, String promotionName) {
-        this.flatAmount = flatAmount;
-        this.promotionName = promotionName;
+        setFlatAmount(flatAmount);
+        setPromotionName(promotionName);
     }
 
     @Override
@@ -25,8 +25,13 @@ public class FlatAmountDiscount implements DiscountStrategy {
         return flatAmount;
     }
 
-    public final void setFlatAmount(double flatAmount) {
+    public final void setFlatAmount(double flatAmount) throws 
+            IllegalArgumentException{
         //Requires validation
+        if(flatAmount < 0){
+            throw new IllegalArgumentException("Flat amount must be greater"
+                    + " than $0.00");
+        }
         this.flatAmount = flatAmount;
     }
 
@@ -35,8 +40,13 @@ public class FlatAmountDiscount implements DiscountStrategy {
         return promotionName;
     }
 
-    public final void setPromotionName(String promotionName) {
+    public final void setPromotionName(String promotionName) throws
+            IllegalArgumentException{
         //Requires validation
+        if(promotionName.length() < 5){
+            throw new IllegalArgumentException("Promotion name must be "
+                    + "greater than 5 characters");
+        }
         this.promotionName = promotionName;
     }
 

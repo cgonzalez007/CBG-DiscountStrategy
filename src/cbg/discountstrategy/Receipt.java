@@ -44,6 +44,8 @@ public class Receipt {
         addLineItemToArray(addedLineItem);
         }catch(InvalidProductIdException ip){
             JOptionPane.showMessageDialog(null, ip.getMessage());
+        }catch(IllegalArgumentException ia){
+            JOptionPane.showMessageDialog(null, ia.getMessage());
         }
     }
     

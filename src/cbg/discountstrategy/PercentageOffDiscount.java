@@ -11,8 +11,8 @@ public class PercentageOffDiscount implements DiscountStrategy {
     private String promotionName;
 
     public PercentageOffDiscount(double percentageOff, String promotionName) {
-        this.percentageOff = percentageOff;
-        this.promotionName = promotionName;
+        setPercentageOff(percentageOff);
+        setPromotionName(promotionName);
     }
 
     @Override
@@ -25,8 +25,13 @@ public class PercentageOffDiscount implements DiscountStrategy {
         return percentageOff;
     }
 
-    public final void setPercentageOff(double percentageOff) {
+    public final void setPercentageOff(double percentageOff) throws 
+            IllegalArgumentException{
         //Requires validation
+        if(percentageOff < 0 || percentageOff > 1.0){
+            throw new IllegalArgumentException("Invalid percentage: Percentage "
+                    + "must be greater than 0, and less than 1");
+        }
         this.percentageOff = percentageOff;
     }
 
@@ -35,8 +40,13 @@ public class PercentageOffDiscount implements DiscountStrategy {
         return promotionName;
     }
 
-    public final void setPromotionName(String promotionName) {
+    public final void setPromotionName(String promotionName) throws
+            IllegalArgumentException{
         //Requires validation
+        if(promotionName.length() < 5){
+            throw new IllegalArgumentException("Promotion name must be "
+                    + "greater than 5 characters");
+        }
         this.promotionName = promotionName;
     }
 
