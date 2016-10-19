@@ -11,13 +11,13 @@ public class PosTerminal {
 
     public final void startNewSale(String customerId, ReceiptOutputStrategy 
             receiptOutput, ReceiptFormatStrategy 
-            receiptFormat, EndOfSaleMessageOutputStrategy 
-            endOfSaleMessageOutput, EndOfSaleMessageFormatStrategy
+            receiptFormat, SaleMessageOutputStrategy 
+            saleMessageOutput, EndOfSaleMessageFormatStrategy
             endOfSaleMessageFormat, DataAccessStrategy
             dataAccess) {
 
         Receipt newReceipt = new Receipt(customerId, receiptOutput,
-                receiptFormat, endOfSaleMessageOutput,
+                receiptFormat, saleMessageOutput,
                 endOfSaleMessageFormat, dataAccess);
         setReceipt(newReceipt);
     }

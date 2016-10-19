@@ -7,11 +7,11 @@ import javax.swing.JOptionPane;
  *
  * @author cgonz
  */
-public class GuiEndOfSaleMessageOutput implements
-        EndOfSaleMessageOutputStrategy {
+public class GuiSaleMessageOutput implements
+        SaleMessageOutputStrategy {
 
     @Override
-    public final void outputEndOfSaleMessage(String saleOutput) {
+    public final void outputSaleMessage(String saleOutput) {
         JOptionPane.showMessageDialog(null, saleOutput);
     }
 

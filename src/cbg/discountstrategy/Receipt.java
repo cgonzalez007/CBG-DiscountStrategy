@@ -15,23 +15,23 @@ public class Receipt {
     private LineItem[] lineItems;
     private ReceiptOutputStrategy receiptOutput;
     private ReceiptFormatStrategy receiptFormat;
-    private EndOfSaleMessageOutputStrategy endOfSaleMessageOutput;
+    private SaleMessageOutputStrategy saleMessageOutput;
     private EndOfSaleMessageFormatStrategy endOfSaleMessageFormat;
 
     public Receipt(String customerId, ReceiptOutputStrategy 
             receiptOutput, ReceiptFormatStrategy 
-            receiptFormat, EndOfSaleMessageOutputStrategy 
-            endOfSaleMessageOutput, EndOfSaleMessageFormatStrategy 
+            receiptFormat, SaleMessageOutputStrategy 
+            saleMessageOutput, EndOfSaleMessageFormatStrategy 
             endOfSaleMessageFormat, DataAccessStrategy dataAccess) {
         //Requires validation
-        this.receiptOutput = receiptOutput;
-        this.receiptFormat = receiptFormat;
-        this.endOfSaleMessageOutput = endOfSaleMessageOutput;
-        this.endOfSaleMessageFormat = endOfSaleMessageFormat;
+        setReceiptOutput(receiptOutput);
+        setReceiptFormat(receiptFormat);
+        setSaleMessageOutput(saleMessageOutput);
+        setEndOfSaleMessageFormat(endOfSaleMessageFormat);
         try{
         setCustomer(dataAccess.findCustomer(customerId));
         }catch(InvalidCustomerIdException ic){
-            JOptionPane.showMessageDialog(null, ic.getMessage());
+            saleMessageOutput.outputSaleMessage(ic.getMessage());
         }
         LineItem[] newLineItems = new LineItem[0];
         this.lineItems = newLineItems;
@@ -43,9 +43,9 @@ public class Receipt {
         (productId), productQty);
         addLineItemToArray(addedLineItem);
         }catch(InvalidProductIdException ip){
-            JOptionPane.showMessageDialog(null, ip.getMessage());
+            saleMessageOutput.outputSaleMessage(ip.getMessage());
         }catch(IllegalArgumentException ia){
-            JOptionPane.showMessageDialog(null, ia.getMessage());
+            saleMessageOutput.outputSaleMessage(ia.getMessage());
         }
     }
     
@@ -63,9 +63,10 @@ public class Receipt {
         receiptOutput.outputSaleReceipt(receiptFormat.
                 getFormattedReceiptContent(customer, lineItems,
                 getSaleSubTotal(), getSaleSavingsTotal(), getSaleTaxTotal(),
-                getSaleGrandTotal(), getTotalItemsSold(),getTodaysDateAndTime()));
+                getSaleGrandTotal(), getTotalItemsSold(),
+                getTodaysDateAndTime()));
 
-        endOfSaleMessageOutput.outputEndOfSaleMessage(endOfSaleMessageFormat.
+        saleMessageOutput.outputSaleMessage(endOfSaleMessageFormat.
                 getFormattedEndOfSaleMessage(customer, lineItems, 
                 getSaleSubTotal(), getSaleSavingsTotal(), getSaleTaxTotal(), 
                 getSaleGrandTotal(), getTotalItemsSold()));
@@ -144,14 +145,14 @@ public class Receipt {
         this.receiptFormat = receiptFormat;
     }
 
-    public final EndOfSaleMessageOutputStrategy getEndOfSaleMessageOutput() {
-        return endOfSaleMessageOutput;
+    public final SaleMessageOutputStrategy getSaleMessageOutput() {
+        return saleMessageOutput;
     }
 
-    public final void setEndOfSaleMessageOutput(EndOfSaleMessageOutputStrategy 
-            endOfSaleMessageOutput) {
-        //Requires validation
-        this.endOfSaleMessageOutput = endOfSaleMessageOutput;
+    public final void setSaleMessageOutput(SaleMessageOutputStrategy 
+            saleMessageOutput) {
+        //Requires Validation
+        this.saleMessageOutput = saleMessageOutput;
     }
 
     public final EndOfSaleMessageFormatStrategy getEndOfSaleMessageFormat() {

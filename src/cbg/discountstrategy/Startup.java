@@ -14,17 +14,17 @@ public class Startup {
         ReceiptOutputStrategy receiptOutput = new ConsoleReceiptOutput();
         ReceiptFormatStrategy receiptFormat = new ConsoleReceiptFormat2();
 
-        EndOfSaleMessageOutputStrategy endOfSaleMessageOutput
-                = new GuiEndOfSaleMessageOutput();
+        SaleMessageOutputStrategy saleMessageOutput
+                = new GuiSaleMessageOutput();
         EndOfSaleMessageFormatStrategy endOfSaleMessageFormat = 
                 new GuiEndOfSaleMessageFormat2();
 
         PosTerminal posTerminal = new PosTerminal();
 
         posTerminal.startNewSale("C003", receiptOutput,
-                receiptFormat, endOfSaleMessageOutput,
+                receiptFormat, saleMessageOutput,
                 endOfSaleMessageFormat, dataAccess);
-        posTerminal.addProductToSale("P101", 5, dataAccess);
+        posTerminal.addProductToSale("P201", 5, dataAccess);
         posTerminal.addProductToSale("P102", 2, dataAccess);
         posTerminal.addProductToSale("P103", 14, dataAccess);
         posTerminal.addProductToSale("P104", 23, dataAccess);
