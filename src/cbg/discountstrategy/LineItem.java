@@ -9,6 +9,8 @@ public class LineItem {
 
     private Product product;
     private int productQty;
+    private static final int MIN_PRODUCT_QTY = 1;
+    private static final int MAX_PRODUCT_QTY = 99;
 
     public LineItem(Product product, int productQty) {
         this.product = product;
@@ -32,9 +34,8 @@ public class LineItem {
     public final void setProductQty(int productQty) throws 
             IllegalArgumentException {
         //Requires validation
-        if(productQty <0){
-            throw new IllegalArgumentException("Sorry, quantity must be 1 or "
-                    + "greater");
+        if(productQty < MIN_PRODUCT_QTY|| productQty > MAX_PRODUCT_QTY){
+            throw new IllegalArgumentException("Invalid Product Quantity");
         }
         this.productQty = productQty;
     }

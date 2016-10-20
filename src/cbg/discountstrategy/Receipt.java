@@ -17,6 +17,12 @@ public class Receipt {
     private ReceiptFormatStrategy receiptFormat;
     private SaleMessageOutputStrategy saleMessageOutput;
     private EndOfSaleMessageFormatStrategy endOfSaleMessageFormat;
+    private static final  String INVALID_CUSTOMER_ID_ERROR = "Invalid Customer"
+            + " ID. Customer not found.";
+    private static final  String INVALID_PRODUCT_ID_ERROR = "Invalid Product"
+            + " ID. Product not found.";
+    private static final  String INVALID_PRODUCT_QTY_ERROR = "Invalid Product"
+            + " quantity value.";
 
     public Receipt(String customerId, ReceiptOutputStrategy 
             receiptOutput, ReceiptFormatStrategy 
@@ -31,7 +37,7 @@ public class Receipt {
         try{
         setCustomer(dataAccess.findCustomer(customerId));
         }catch(InvalidCustomerIdException ic){
-            saleMessageOutput.outputSaleMessage(ic.getMessage());
+            saleMessageOutput.outputSaleMessage(INVALID_CUSTOMER_ID_ERROR);
         }
         LineItem[] newLineItems = new LineItem[0];
         this.lineItems = newLineItems;
@@ -43,9 +49,10 @@ public class Receipt {
         (productId), productQty);
         addLineItemToArray(addedLineItem);
         }catch(InvalidProductIdException ip){
-            saleMessageOutput.outputSaleMessage(ip.getMessage());
-        }catch(IllegalArgumentException ia){
-            saleMessageOutput.outputSaleMessage(ia.getMessage());
+            saleMessageOutput.outputSaleMessage(INVALID_PRODUCT_ID_ERROR);
+        }
+        catch(IllegalArgumentException ia){
+            saleMessageOutput.outputSaleMessage(INVALID_PRODUCT_QTY_ERROR);
         }
     }
     
